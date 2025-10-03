@@ -12,5 +12,27 @@
       "name": "noter",
       "path": "."
     }
-  ]
+  ],
+  "settings": {
+    "workbench.colorCustomizations": {
+      "activityBar.activeBackground": "#039cff",
+      "activityBar.background": "#039cff",
+      "activityBar.foreground": "#e7e7e7",
+      "activityBar.inactiveForeground": "#e7e7e799",
+      "activityBarBadge.background": "#bf0074",
+      "activityBarBadge.foreground": "#e7e7e7",
+      "commandCenter.border": "#e7e7e799",
+      "sash.hoverBorder": "#039cff",
+      "statusBar.background": "#007ecf",
+      "statusBar.foreground": "#e7e7e7",
+      "statusBarItem.hoverBackground": "#039cff",
+      "statusBarItem.remoteBackground": "#007ecf",
+      "statusBarItem.remoteForeground": "#e7e7e7",
+      "titleBar.activeBackground": "#007ecf",
+      "titleBar.activeForeground": "#e7e7e7",
+      "titleBar.inactiveBackground": "#007ecf99",
+      "titleBar.inactiveForeground": "#e7e7e799"
+    },
+    "peacock.color": "#007ecf"
+  }
 }
