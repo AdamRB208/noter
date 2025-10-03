@@ -5,7 +5,7 @@ const Schema = mongoose.Schema
 export const NotebookSchema = new Schema(
   {
     title: {type: String, minLength: 3, maxLength: 25, required: true},
-    icon: {type: String, minLength: 3, maxLength: 25, required: true},
+    icons: ['mdi-database', 'mdi-cloud', 'mdi-package', 'mdi-palette', 'mdi-home', 'mdi-code-array', 'mdi-xml', 'mdi-cash', 'mdi-food-apple', 'mdi-account', 'mdi-shield', 'mdi-pencil'],
     color: {type: String, minLength: 3, maxLength: 20, required: true},
     coverImg: {type: String, minLength: 1, maxLength: 500, required: true},
     creatorId: {type: Schema.ObjectId, required: true, ref: 'Account'},

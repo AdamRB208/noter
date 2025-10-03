@@ -1,4 +1,12 @@
+import { dbContext } from "../db/DbContext.js"
+
 class NotebooksService {
+  async createNotebook(notebookData) {
+    const notebook = await dbContext.Notebook.create(notebookData)
+    await notebook.populate('creator', 'name picture')
+    // await notebook.populate('eventCount')
+    return notebook
+  }
 
 }
 
