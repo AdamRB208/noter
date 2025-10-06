@@ -19,7 +19,7 @@ export class NotebooksController extends BaseController {
     try {
       const notebookData = request.body
       const userInfo = request.userInfo
-      notebookData.creatorId = userInfo._id
+      notebookData.creatorId = userInfo.id
       const notebook = await notebookService.createNotebook(notebookData)
       response.send(notebook)
     }
