@@ -11,6 +11,7 @@ export class NotebooksController extends BaseController {
       .post('', this.createNotebook)
       .get('', this.getMyNotebooks)
       .put('/:notebookId', this.editNotebook)
+      .delete('/:notebookId', this.deleteNotebook)
   }
 
   /**
@@ -73,6 +74,22 @@ export class NotebooksController extends BaseController {
       const userInfo = request.userInfo
       const notebook = await notebookService.editNotebook(notebookId, userInfo, notebookToUpdate)
       response.send(notebook)
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  /**
+   * @param {import("express").Request} request
+   * @param {import("express").Response} response
+   * @param {import("express").NextFunction} next
+   */
+  async deleteNotebook(request, response, next) {
+    try {
+      const notebookId = request.params.notebookId
+      const userInfo = request.userInfo
+      const message = await notebookService.deleteNotebook(notebookId, userInfo)
+      response.send(message)
     } catch (error) {
       next(error);
     }

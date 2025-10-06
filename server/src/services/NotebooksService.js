@@ -36,6 +36,14 @@ class NotebooksService {
     return notebookToUpdate
   }
 
+  async deleteNotebook(notebookId, userInfo) {
+    const notebook = await dbContext.Notebook.findById(notebookId)
+    if (notebook?.creatorId != userInfo.id) {
+      throw new Forbidden(`YOU CANNOT DELETE ANOTHER USERS NOTEBOOK ${userInfo.name.toUpperCase()}!`);
+    }
+    await notebook?.save()
+    return notebook
+  }
 
 
 }
