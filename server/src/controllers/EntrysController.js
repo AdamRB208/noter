@@ -1,10 +1,13 @@
+import { Auth0Provider } from "@bcwdev/auth0provider";
+import { entryService } from "../services/EntrysService.js";
 import BaseController from "../utils/BaseController.js";
 
 export class EntrysController extends BaseController { 
   constructor() {
-    super('api/events')
+    super('api/entries')
     this.router
-
+      .use(Auth0Provider.getAuthorizedUserInfo)
+      .post('', this.createEntry)
   }
 
   /**
@@ -17,7 +20,8 @@ export class EntrysController extends BaseController {
       const entryData = request.body
       const userInfo = request.userInfo
       entryData.creatorId = userInfo.id
-      const entry = await 
+      const entry = await entryService.createEntry(entryData)
+      response.send(entry)
     } catch (error) {
       next(error);
     }
