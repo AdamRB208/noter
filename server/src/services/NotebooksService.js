@@ -8,6 +8,12 @@ class NotebooksService {
     return notebook
   }
 
+  async getNotebooks() {
+    const notebooks = await dbContext.Notebook.find().populate('creator', 'name picture')
+    return notebooks
+  }
+
+
 }
 
 export const notebookService = new NotebooksService()

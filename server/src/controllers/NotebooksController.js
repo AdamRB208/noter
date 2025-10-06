@@ -8,6 +8,7 @@ export class NotebooksController extends BaseController {
     this.router
       .use(Auth0Provider.getAuthorizedUserInfo)
       .post('', this.createNotebook)
+      .get('', this.getNotebooks)
   }
 
   /**
@@ -24,6 +25,20 @@ export class NotebooksController extends BaseController {
       response.send(notebook)
     }
     catch (error) {
+      next(error);
+    }
+  }
+
+  /**
+   * @param {import("express").Request} request
+   * @param {import("express").Response} response
+   * @param {import("express").NextFunction} next
+   */
+  async getNotebooks(request, response, next) {
+    try {
+      const notebooks = await notebookService.getNotebooks()
+      response.send(notebooks)
+    } catch (error) {
       next(error);
     }
   }
