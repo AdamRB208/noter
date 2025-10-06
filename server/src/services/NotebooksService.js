@@ -14,6 +14,10 @@ class NotebooksService {
   }
 
 
+  async getNotebookById(notebookId) {
+    const notebook = await dbContext.Notebook.findById(notebookId).populate('creator', 'name picture')
+    return notebook
+  }
 }
 
 export const notebookService = new NotebooksService()
