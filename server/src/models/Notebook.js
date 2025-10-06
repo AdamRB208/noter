@@ -25,4 +25,10 @@ NotebookSchema.virtual('creator', {
   justOne: true
 })
 
-// TODO Make sure to include the virtual property for entryCount once entry model is created and re-run PostMan tests to make sure property is properly included on the object. 
+NotebookSchema.virtual('entryCount', {
+  ref: 'Entry',
+  localField: '_id',
+  foreignField: 'notebookId',
+  justOne: false,
+  count: true
+})

@@ -5,18 +5,18 @@ class NotebooksService {
   async createNotebook(notebookData) {
     const notebook = await dbContext.Notebook.create(notebookData)
     await notebook.populate('creator', 'name picture')
-    // await notebook.populate('eventCount')
+    await notebook.populate('entryCount')
     return notebook
   }
 
   async getMyNotebooks(userId) {
-    const notebooks = await dbContext.Notebook.find({ creatorId: userId }).populate('creator', 'name picture')
+    const notebooks = await dbContext.Notebook.find({ creatorId: userId }).populate('creator', 'name picture').populate('entryCount')
     return notebooks
   }
 
 
   async getNotebookById(notebookId) {
-    const notebook = await dbContext.Notebook.findById(notebookId).populate('creator', 'name picture')
+    const notebook = await dbContext.Notebook.findById(notebookId).populate('creator', 'name picture').populate('entryCount')
     return notebook
   }
 
