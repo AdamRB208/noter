@@ -1,4 +1,5 @@
 import { dbContext } from "../db/DbContext.js"
+import { BadRequest, Forbidden } from "../utils/Errors.js"
 
 class NotebooksService {
   async createNotebook(notebookData) {
@@ -18,6 +19,25 @@ class NotebooksService {
     const notebook = await dbContext.Notebook.findById(notebookId).populate('creator', 'name picture')
     return notebook
   }
+
+  async editNotebook(notebookId, userInfo, updateData) {
+    const notebookToUpdate = await dbContext.Notebook.findById(notebookId)
+    if (notebookToUpdate == null) {
+      throw new BadRequest(`Invalid Notebook Id: ${notebookId}`)
+    }
+    if (notebookToUpdate.creatorId != userInfo.id) {
+      throw new Forbidden(`YOU CANNOT EDIT ANOTHER USERS NOTEBOOK ${userInfo.name.toUpperCase()}!`);
+    }
+    notebookToUpdate.title = updateData.title
+    notebookToUpdate.icon = updateData.icon
+    notebookToUpdate.color = updateData.color
+    notebookToUpdate.coverImg = updateData.coverImg
+    await notebookToUpdate.save()
+    return notebookToUpdate
+  }
+
+
+
 }
 
 export const notebookService = new NotebooksService()
