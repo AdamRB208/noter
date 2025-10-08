@@ -45,6 +45,12 @@ class NotebooksService {
     return notebook
   }
 
+  // TODO This function should be in entries service and return an entry.
+  // async getNotebookEntries(notebookId) {
+  //   const notebookEntries = await dbContext.Notebook.find({ _id: notebookId }).populate('entry')
+  //   return notebookEntries
+  // }
+
 
 }
 
