@@ -8,8 +8,8 @@ export class NotebooksController extends BaseController {
     super('api/notebooks')
     this.router
       .get('/:notebookId', this.getNotebookById)
+      .get('/:notebookId/entries', this.getNotebookEntries)
       .use(Auth0Provider.getAuthorizedUserInfo)
-      .get('', this.getNotebookEntries)
       .post('', this.createNotebook)
       .get('', this.getMyNotebooks)
       .put('/:notebookId', this.editNotebook)
