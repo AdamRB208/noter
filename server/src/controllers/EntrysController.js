@@ -11,7 +11,6 @@ export class EntrysController extends BaseController {
       .post('', this.createGeneralEntry)
       .post('', this.createEntry)
       .get('', this.getUsersEntries)
-      .get(':notebookId/entries', this.getNotebookEntries)
   }
 
   /**

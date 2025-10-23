@@ -1,3 +1,4 @@
+import { entryService } from "../services/EntrysService.js";
 import { notebookService } from "../services/NotebooksService.js";
 import BaseController from "../utils/BaseController.js";
 import { Auth0Provider } from "@bcwdev/auth0provider";
@@ -8,6 +9,7 @@ export class NotebooksController extends BaseController {
     this.router
       .get('/:notebookId', this.getNotebookById)
       .use(Auth0Provider.getAuthorizedUserInfo)
+      .get('', this.getNotebookEntries)
       .post('', this.createNotebook)
       .get('', this.getMyNotebooks)
       .put('/:notebookId', this.editNotebook)
@@ -90,6 +92,23 @@ export class NotebooksController extends BaseController {
       const userInfo = request.userInfo
       const message = await notebookService.deleteNotebook(notebookId, userInfo)
       response.send(message)
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  /**
+ * @param {import("express").Request} request
+ * @param {import("express").Response} response
+ * @param {import("express").NextFunction} next
+ */
+
+  async getNotebookEntries(request, response, next) {
+    try {
+      const notebookId = request.params.notebookId
+      const userInfo = request.userInfo
+      const notebookEntries = await entryService.getNotebookEntries(notebookId, userInfo)
+      response.send(notebookEntries)
     } catch (error) {
       next(error);
     }

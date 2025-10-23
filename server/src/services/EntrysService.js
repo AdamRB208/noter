@@ -18,7 +18,10 @@ class EntrysService {
     return entries
   }
 
-
+  async getNotebookEntries(notebookId) {
+    const notebookEntries = await dbContext.Notebook.find({ _id: notebookId }).populate('entry')
+    return notebookEntries
+  }
 
 }
 
