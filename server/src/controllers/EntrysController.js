@@ -69,16 +69,7 @@ export class EntrysController extends BaseController {
    * @param {import("express").Response} response
    * @param {import("express").NextFunction} next
    */
-  // TODO This function should start in notebook controller and send to entry service.
-  // async getNotebookEntries(request, response, next) {
-  //   try {
-  //     const notebookId = request.params.notebookId
-  //     const notebookEntries = await notebookService.getNotebookEntries(notebookId)
-  //     response.send(notebookEntries)
-  //   } catch (error) {
-  //     next(error);
-  //   }
-  // }
+
 
 
 

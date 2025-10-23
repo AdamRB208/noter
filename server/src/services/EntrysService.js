@@ -1,4 +1,5 @@
 import { dbContext } from "../db/DbContext.js"
+import { Forbidden } from "../utils/Errors.js"
 
 class EntrysService {
 
@@ -19,8 +20,12 @@ class EntrysService {
   }
 
   async getNotebookEntries(notebookId, userId) {
-    const notebookEntries = await dbContext.Notebook.find({ _id: notebookId, creatorId: userId }).populate('entry')
-    return notebookEntries
+    const notebookEntries = await dbContext.Notebook.find({ _id: notebookId, creatorId: userId }).populate('notebook')
+    if (notebookEntries.creatorId != userId) {
+      throw new Forbidden(`YOU ARE NOT ALLOWED TO VIEW ANOTHER USERS ENTRIES ${userId.name.toUpperCase()}!`);
+    }
+    const entries = await dbContext.Entry.find({ notebookId: notebookId })
+    return entries
   }
 
 }
