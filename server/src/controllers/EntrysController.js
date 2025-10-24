@@ -11,6 +11,7 @@ export class EntrysController extends BaseController {
       .post('', this.createGeneralEntry)
       .post('', this.createEntry)
       .get('', this.getUsersEntries)
+      .put('/:entryId', this.editEntry)
   }
 
   /**
@@ -69,8 +70,18 @@ export class EntrysController extends BaseController {
    * @param {import("express").Response} response
    * @param {import("express").NextFunction} next
    */
-
-
+  async editEntry(request, response, next) {
+    try {
+      const entryId = request.params.entryId
+      const entryToUpdate = request.body
+      const userInfo = request.userInfo
+      const entry = await entryService.editEntry(entryId, userInfo, entryToUpdate)
+      response.send(entry)
+    }
+    catch (error) {
+      next(error);
+    }
+  }
 
 
 }

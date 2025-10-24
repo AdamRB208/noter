@@ -23,7 +23,7 @@ class NotebooksService {
   async editNotebook(notebookId, userInfo, updateData) {
     const notebookToUpdate = await dbContext.Notebook.findById(notebookId)
     if (notebookToUpdate == null) {
-      throw new BadRequest(`Invalid Notebook Id: ${notebookId}`)
+      throw new BadRequest(`Invalid Notebook Id: ${notebookId}.`)
     }
     if (notebookToUpdate.creatorId != userInfo.id) {
       throw new Forbidden(`YOU CANNOT EDIT ANOTHER USERS NOTEBOOK ${userInfo.name.toUpperCase()}!`);

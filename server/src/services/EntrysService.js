@@ -1,5 +1,5 @@
 import { dbContext } from "../db/DbContext.js"
-import { Forbidden } from "../utils/Errors.js"
+import { BadRequest, Forbidden } from "../utils/Errors.js"
 
 class EntrysService {
 
@@ -19,6 +19,8 @@ class EntrysService {
     return entries
   }
 
+  // TODO check to see what data comes back as the userId and ensure its correct.
+
   async getNotebookEntries(notebookId, userId) {
     const notebookEntries = await dbContext.Notebook.find({ _id: notebookId, creatorId: userId }).populate('notebook')
     if (notebookEntries.creatorId != userId) {
@@ -26,6 +28,24 @@ class EntrysService {
     }
     const entries = await dbContext.Entry.find({ notebookId: notebookId })
     return entries
+  }
+
+  async editEntry(entryId, userInfo, updateData) {
+    const entryToUpdate = await dbContext.Entry.findById(entryId)
+    if (entryToUpdate == null) {
+      throw new BadRequest(`Invalid Entry Id: ${entryId}.`)
+    }
+    if (entryToUpdate.creatorId != userInfo.id) {
+      throw new Forbidden(`YOU CANNOT EDIT ANOTHER USERS ENTRY ${userInfo.name.toUpperCase()}!`);
+    }
+    if (updateData.description !== undefined) {
+      entryToUpdate.description = updateData.description
+    }
+    if (updateData.img !== undefined) {
+      entryToUpdate.img = updateData.img
+    }
+    await entryToUpdate.save()
+    return entryToUpdate
   }
 
 }
