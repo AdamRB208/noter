@@ -48,6 +48,19 @@ class EntrysService {
     return entryToUpdate
   }
 
+  async editEntriesNotebookLocation(entryId, userInfo, updateData) {
+    const entryToUpdate = await dbContext.Entry.findById(entryId)
+    if (entryToUpdate == null) {
+      throw new BadRequest(`Invalid Entry Id: ${entryId}.`)
+    }
+    if (entryToUpdate.creatorId != userInfo.id) {
+      throw new Forbidden(`YOU CANNOT MOVE ANOTHER USERS ENTRY ${userInfo.name.toUpperCase()}!`)
+    }
+    entryToUpdate.notebookId = updateData.notebookId
+    await entryToUpdate.save()
+    return entryToUpdate
+  }
+
 }
 
 export const entryService = new EntrysService()

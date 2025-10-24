@@ -12,6 +12,7 @@ export class EntrysController extends BaseController {
       .post('', this.createEntry)
       .get('', this.getUsersEntries)
       .put('/:entryId', this.editEntry)
+      .put('/:entryId', this.editEntriesNotebookLocation)
   }
 
   /**
@@ -83,5 +84,21 @@ export class EntrysController extends BaseController {
     }
   }
 
+  /**
+   * @param {import("express").Request} request
+   * @param {import("express").Response} response
+   * @param {import("express").NextFunction} next
+   */
+  async editEntriesNotebookLocation(request, response, next) {
+    try {
+      const entryId = request.params.entryId
+      const entryToUpdate = request.body
+      const userInfo = request.userInfo
+      const entry = await entryService.editEntriesNotebookLocation(entryId, userInfo, entryToUpdate)
+      response.send(entry)
+    } catch (error) {
+      next(error);
+    }
+  }
 
 }
