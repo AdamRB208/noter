@@ -22,6 +22,7 @@ const routes = [
     component: loadPage('AccountPage'),
     beforeEnter: authGuard
   }
+
 ]
 
 export const router = createRouter({
