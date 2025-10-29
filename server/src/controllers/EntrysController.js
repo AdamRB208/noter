@@ -13,6 +13,7 @@ export class EntrysController extends BaseController {
       .get('', this.getUsersEntries)
       .put('/:entryId', this.editEntry)
       .put('/:entryId', this.editEntriesNotebookLocation)
+      .delete('/:entryId', this.deleteEntry)
   }
 
   /**
@@ -96,6 +97,22 @@ export class EntrysController extends BaseController {
       const userInfo = request.userInfo
       const entry = await entryService.editEntriesNotebookLocation(entryId, userInfo, entryToUpdate)
       response.send(entry)
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  /**
+   * @param {import("express").Request} request
+   * @param {import("express").Response} response
+   * @param {import("express").NextFunction} next
+   */
+  async deleteEntry(request, response, next) {
+    try {
+      const entryId = request.params.entryId
+      const userInfo = request.userInfo
+      const message = await entryService.deleteEntry(entryId, userInfo)
+      response.send(message)
     } catch (error) {
       next(error);
     }

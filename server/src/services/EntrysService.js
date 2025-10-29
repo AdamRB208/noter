@@ -61,6 +61,14 @@ class EntrysService {
     return entryToUpdate
   }
 
+  async deleteEntry(entryId, userInfo) {
+    const entry = await dbContext.Entry.findById(entryId)
+    if (entry?.creatorId != userInfo.id) {
+      throw new Forbidden(`YOU CANNOT DELETE ANOTHER USERS ENTRY ${userInfo.name.toUpperCase()}!`);
+    }
+    await entry?.save()
+    return entry
+  }
 }
 
 export const entryService = new EntrysService()
