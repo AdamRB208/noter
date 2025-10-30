@@ -1,19 +1,16 @@
 <script setup>
 import { AppState } from '@/AppState.js';
+import { notebookService } from '@/services/NotebookService.js';
 import { logger } from '@/utils/Logger.js';
 import { Pop } from '@/utils/Pop.js';
 import { computed, onMounted } from 'vue';
 
 
-const notebooks = computed(() => AppState.notebook)
-
-onMounted(() => {
-
-})
+const notebooks = computed(() => AppState.notebooks)
 
 async function getNotebooks() {
   try {
-    await 
+    await notebookService.getNotebooks()
   }
   catch (error) {
     Pop.error(error, 'COULD NOT GET NOTEBOOKS!');
@@ -25,8 +22,8 @@ async function getNotebooks() {
 
 <template>
   <div class="col-md-2 m-5">
-    <button class="btn btn-primary btn-rounded text-light" type="button" data-bs-toggle="offcanvas"
-      data-bs-target="#manageNotebooks" aria-controls="manageNotebooks">Notebooks</button>
+    <button @click="getNotebooks()" class="btn btn-primary btn-rounded text-light" type="button"
+      data-bs-toggle="offcanvas" data-bs-target="#manageNotebooks" aria-controls="manageNotebooks">Notebooks</button>
   </div>
   <div>
     <div class="offcanvas offcanvas-start text-light" tabindex="-1" id="manageNotebooks"
@@ -63,6 +60,7 @@ async function getNotebooks() {
       </div>
     </div>
   </div>
+  <div>{{ notebooks }}</div>
 </template>
 
 
