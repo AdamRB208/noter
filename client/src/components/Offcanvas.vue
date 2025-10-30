@@ -5,11 +5,12 @@
 
 <template>
   <div class="col-md-2 m-5">
-    <button class="btn btn-primary btn-rounded" type="button" data-bs-toggle="offcanvas"
+    <button class="btn btn-primary btn-rounded text-light" type="button" data-bs-toggle="offcanvas"
       data-bs-target="#manageNotebooks" aria-controls="manageNotebooks">Notebooks</button>
   </div>
   <div>
-    <div class="offcanvas offcanvas-start" tabindex="-1" id="manageNotebooks" aria-labelledby="manageNotebooks">
+    <div class="offcanvas offcanvas-start text-light" tabindex="-1" id="manageNotebooks"
+      aria-labelledby="manageNotebooks">
       <div class="offcanvas-header">
         <h5 class="offcanvas-title" id="manageNotebooks">Manage Notebooks</h5>
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -35,7 +36,7 @@
           <input type="url" class="form-control" placeholder="Image URL..." aria-label="url">
         </div>
         <div class="d-flex justify-content-end">
-          <button class="btn btn-primary" type="button">
+          <button class="btn btn-primary text-light" type="button">
             Create Notebook
           </button>
         </div>
@@ -45,4 +46,8 @@
 </template>
 
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.offcanvas-start {
+  background-color: rgba(72, 71, 71, 0.831);
+}
+</style>
