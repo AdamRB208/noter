@@ -1,11 +1,13 @@
 <script setup>
+import Offcanvas from '@/components/Offcanvas.vue';
 
 
 </script>
 
 <template>
   <div>
-    <button class="btn btn-primary btn-rounded">Notebooks</button>
+    <Offcanvas />
+
   </div>
 </template>
 
