@@ -15,19 +15,29 @@
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>
       <div class="offcanvas-body">
-        <div>
-          Some text as placeholder. In real life you can have the elements you have chosen. Like, text, images, lists,
-          etc.
+        <div class="d-flex d-inline">
+          <div class="mb-3">
+            <label for="title" class="form-label">Notebook Title</label>
+            <input type="text" class="form-control w-100" placeholder="Title" aria-label="title">
+          </div>
+          <div class="mb-3 ms-1">
+            <label for="icon" class="form-label">Icon</label>
+            <input type="text" class="form-control w-100" placeholder="Icon" aria-label="icon">
+          </div>
+          <div class="mb-3 ms-1">
+            <label for="color" class="form-label">Color</label>
+            <input type="color" class="form-control form-control-color w-100" id="color" value="#563d7c"
+              title="Choose your color">
+          </div>
         </div>
-        <div class="dropdown mt-3">
-          <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
-            Dropdown button
+        <div class="mb-4">
+          <label for="url" class="form-label">Cover Image</label>
+          <input type="url" class="form-control" placeholder="Image URL..." aria-label="url">
+        </div>
+        <div class="d-flex justify-content-end">
+          <button class="btn btn-primary" type="button">
+            Create Notebook
           </button>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
-          </ul>
         </div>
       </div>
     </div>
@@ -35,6 +45,4 @@
 </template>
 
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>
