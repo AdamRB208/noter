@@ -1,16 +1,20 @@
 <script setup>
 import { AppState } from '@/AppState.js';
+import { accountService } from '@/services/AccountService.js';
 import { notebookService } from '@/services/NotebookService.js';
 import { logger } from '@/utils/Logger.js';
 import { Pop } from '@/utils/Pop.js';
-import { computed, onMounted } from 'vue';
+import { computed } from 'vue';
 
 
+const account = computed(() => AppState.account)
 const notebooks = computed(() => AppState.notebooks)
+
 
 async function getNotebooks() {
   try {
-    await notebookService.getNotebooks()
+    await accountService.getAccount()
+    notebookService.getNotebooks()
   }
   catch (error) {
     Pop.error(error, 'COULD NOT GET NOTEBOOKS!');
@@ -58,8 +62,15 @@ async function getNotebooks() {
           </button>
         </div>
       </div>
-      <div class="offcanvas-footer">
-        <div>{{ notebooks }}</div>
+      <div v-if="account" class="offcanvas-footer overflow-auto">
+        <!-- TODO create simple layout for notebook data as a button so active notebook can be rendered on home page when selected -->
+        <div v-for="notebook in notebooks" :key="notebook.id">
+          <span class="d-flex d-inline justify-content-between m-2 notebook-btn" type="button">
+            <i :class="`mdi ${notebook.icon}`"></i>
+            <div>{{ notebook.title }}</div>
+            <div>{{ notebook.entryCount }} Entries</div>
+          </span>
+        </div>
       </div>
     </div>
   </div>
@@ -69,5 +80,13 @@ async function getNotebooks() {
 <style lang="scss" scoped>
 .offcanvas-start {
   background-color: rgba(72, 71, 71, 0.831);
+}
+.offcanvas-body {
+  height: 100%;
+  overflow: initial
+}
+
+.notebook-btn {
+  max-width: 100vw;
 }
 </style>
