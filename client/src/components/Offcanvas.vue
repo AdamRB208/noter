@@ -1,5 +1,25 @@
 <script setup>
+import { AppState } from '@/AppState.js';
+import { logger } from '@/utils/Logger.js';
+import { Pop } from '@/utils/Pop.js';
+import { computed, onMounted } from 'vue';
 
+
+const notebooks = computed(() => AppState.notebook)
+
+onMounted(() => {
+
+})
+
+async function getNotebooks() {
+  try {
+    await 
+  }
+  catch (error) {
+    Pop.error(error, 'COULD NOT GET NOTEBOOKS!');
+    logger.log('Could not get notebooks!', error)
+  }
+}
 </script>
 
 
