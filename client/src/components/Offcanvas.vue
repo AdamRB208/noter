@@ -83,10 +83,11 @@ async function getNotebooks() {
 }
 .offcanvas-body {
   height: 100%;
-  overflow: initial
+  overflow: initial;
 }
 
 .notebook-btn {
   max-width: 100vw;
+  border: 2px solid #0e6efd;
 }
 </style>
