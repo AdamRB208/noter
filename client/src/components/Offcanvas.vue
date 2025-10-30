@@ -58,9 +58,11 @@ async function getNotebooks() {
           </button>
         </div>
       </div>
+      <div class="offcanvas-footer">
+        <div>{{ notebooks }}</div>
+      </div>
     </div>
   </div>
-  <div>{{ notebooks }}</div>
 </template>
 
 
