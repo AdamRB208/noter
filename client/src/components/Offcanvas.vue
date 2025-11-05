@@ -1,5 +1,6 @@
 <script setup>
 import { AppState } from '@/AppState.js';
+import { Notebook } from '@/models/Notebook.js';
 import { accountService } from '@/services/AccountService.js';
 import { notebookService } from '@/services/NotebookService.js';
 import { logger } from '@/utils/Logger.js';
@@ -65,7 +66,8 @@ async function getNotebooks() {
       <div v-if="account" class="offcanvas-footer overflow-auto">
         <!-- TODO create simple layout for notebook data as a button so active notebook can be rendered on home page when selected -->
         <div v-for="notebook in notebooks" :key="notebook.id">
-          <span class="d-flex d-inline justify-content-between m-2 notebook-btn" type="button">
+          <span class="d-flex d-inline justify-content-between m-2 notebook-btn rounded p-2" type="button"
+            :style="{ borderColor: notebook.color }">
             <i :class="`mdi ${notebook.icon}`"></i>
             <div>{{ notebook.title }}</div>
             <div>{{ notebook.entryCount }} Entries</div>
@@ -88,6 +90,7 @@ async function getNotebooks() {
 
 .notebook-btn {
   max-width: 100vw;
-  border: 2px solid #0e6efd;
+  border: 2px solid;
 }
+
 </style>
