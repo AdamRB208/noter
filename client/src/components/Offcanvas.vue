@@ -1,6 +1,5 @@
 <script setup>
 import { AppState } from '@/AppState.js';
-import { Notebook } from '@/models/Notebook.js';
 import { accountService } from '@/services/AccountService.js';
 import { notebookService } from '@/services/NotebookService.js';
 import { logger } from '@/utils/Logger.js';
@@ -41,7 +40,7 @@ async function getNotebookById(notebookId) {
 
 
 <template>
-  <div class="col-md-2 m-5">
+  <div class="m-5">
     <button @click="getNotebooks()" class="btn btn-primary btn-rounded text-light" type="button"
       data-bs-toggle="offcanvas" data-bs-target="#manageNotebooks" aria-controls="manageNotebooks">Notebooks</button>
   </div>
