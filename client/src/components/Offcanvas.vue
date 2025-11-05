@@ -6,10 +6,12 @@ import { notebookService } from '@/services/NotebookService.js';
 import { logger } from '@/utils/Logger.js';
 import { Pop } from '@/utils/Pop.js';
 import { computed } from 'vue';
+import { useRoute } from 'vue-router';
 
 
 const account = computed(() => AppState.account)
 const notebooks = computed(() => AppState.notebooks)
+const route = useRoute()
 
 
 async function getNotebooks() {
@@ -22,6 +24,19 @@ async function getNotebooks() {
     logger.log('Could not get notebooks!', error)
   }
 }
+
+async function getNotebookById(notebookId) {
+  try {
+    logger.log('Notebook Id', notebookId)
+    await notebookService.getNotebookById(notebookId)
+    logger.log(notebooks)
+  }
+  catch (error) {
+    Pop.error(error);
+    logger.log('Could not get Active Notebook!', error)
+  }
+}
+
 </script>
 
 
@@ -66,7 +81,8 @@ async function getNotebooks() {
       <div v-if="account" class="offcanvas-footer overflow-auto">
         <!-- TODO create simple layout for notebook data as a button so active notebook can be rendered on home page when selected -->
         <div v-for="notebook in notebooks" :key="notebook.id">
-          <span class="d-flex d-inline justify-content-between m-2 notebook-btn rounded p-2" type="button"
+          <span @click="getNotebookById(notebook.id)"
+            class="d-flex d-inline justify-content-between m-2 notebook-btn rounded p-2" type="button"
             :style="{ borderColor: notebook.color }">
             <i :class="`mdi ${notebook.icon}`"></i>
             <div>{{ notebook.title }}</div>
