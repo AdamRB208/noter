@@ -34,12 +34,16 @@ watch(activeNotebook, (newNotebook) => {
           <Offcanvas />
         </div>
       </div>
-      <div class="col-md-6">
+      <div v-if="activeNotebook" class="col-md-6">
         <div class="d-flex justify-content-center mt-4 background-container" :style="backgroundStyle">
           <h2 class="mt-4 p-2">{{ activeNotebook?.title }}</h2>
         </div>
         <div class="info-container">
-
+          <p class="pt-2">Created By {{ activeNotebook?.creator.name }}</p>
+          <div class="edit-details-container">
+            <p>Created</p>
+            <p>Last Updated</p>
+          </div>
         </div>
       </div>
     </div>
@@ -51,11 +55,19 @@ watch(activeNotebook, (newNotebook) => {
   position: relative
 }
 
+p {
+  color: white;
+  padding-left: 1em;
+  font-size: small;
+}
 .info-container {
+  display: flex;
+    flex-direction: column;
+    align-items: flex-start;
   height: 8rem;
   width: 35rem;
-  background-color: rgba(62, 62, 64, 0.524);
-}
+  background-color: rgba(62, 62, 64, 0.867);
+  }
 
 h2 {
   position: absolute;
