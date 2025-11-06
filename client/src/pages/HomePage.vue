@@ -10,7 +10,9 @@ const backgroundStyle = computed(() => {
     return {
       backgroundImage: `url(${activeNotebook.value.coverImg})`,
       backgroundSize: 'cover',
-      backgroundPosition: 'center'
+      backgroundPosition: 'center',
+      height: '15rem',
+      width: '35rem',
     }
   }
   return {}
@@ -33,12 +35,36 @@ watch(activeNotebook, (newNotebook) => {
         </div>
       </div>
       <div class="col-md-6">
-        <div class="d-flex justify-content-center mt-4" :style="backgroundStyle">
-          <h1>{{ activeNotebook?.title }}</h1>
+        <div class="d-flex justify-content-center mt-4 background-container" :style="backgroundStyle">
+          <h2 class="mt-4 p-2">{{ activeNotebook?.title }}</h2>
+        </div>
+        <div class="info-container">
+
         </div>
       </div>
     </div>
   </div>
 </template>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.background-container {
+  position: relative
+}
+
+.info-container {
+  height: 8rem;
+  width: 35rem;
+  background-color: rgba(62, 62, 64, 0.524);
+}
+
+h2 {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(62, 62, 64, 0.524);
+  height: 3.5rem;
+  margin: 0;
+  display: flex;
+  align-items: center;
+}
+</style>
