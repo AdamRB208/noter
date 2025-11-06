@@ -11,8 +11,8 @@ const backgroundStyle = computed(() => {
       backgroundImage: `url(${activeNotebook.value.coverImg})`,
       backgroundSize: 'cover',
       backgroundPosition: 'center',
-      height: '15rem',
-      width: '35rem',
+      minHeight: '15rem',
+      minWidth: '100%',
     }
   }
   return {}
@@ -44,6 +44,12 @@ watch(activeNotebook, (newNotebook) => {
             <p>Created</p>
             <p>Last Updated</p>
           </div>
+          <div class="buttons-container">
+            <p class="d-flex justify-content-end">{{ activeNotebook?.entryCount }} entries</p>
+            <button class="btn btn-outline-primary" type="button">edit</button>
+            <button class="btn btn-outline-primary" type="button">delete</button>
+            <button class="btn btn-outline-primary" type="button">new</button>
+          </div>
         </div>
       </div>
     </div>
@@ -62,12 +68,23 @@ p {
 }
 .info-container {
   display: flex;
-    flex-direction: column;
+  flex-direction: column;
     align-items: flex-start;
-  height: 8rem;
-  width: 35rem;
-  background-color: rgba(62, 62, 64, 0.867);
-  }
+    height: 8rem;
+    width: 100%;
+      background-color: rgba(62, 62, 64, 0.867);
+      position: relative;
+      }
+      
+      .buttons-container {
+        position: absolute;
+        bottom: 2.5rem;
+        right: 1rem;
+      }
+      
+      button {
+        margin-left: 1rem;
+}
 
 h2 {
   position: absolute;
