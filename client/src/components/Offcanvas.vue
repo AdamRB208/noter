@@ -5,12 +5,10 @@ import { notebookService } from '@/services/NotebookService.js';
 import { logger } from '@/utils/Logger.js';
 import { Pop } from '@/utils/Pop.js';
 import { computed, ref } from 'vue';
-import { useRoute } from 'vue-router';
 
 
 const account = computed(() => AppState.account)
 const notebooks = computed(() => AppState.notebooks)
-const route = useRoute()
 
 const icon = ['mdi-database', 'mdi-cloud', 'mdi-package', 'mdi-palette', 'mdi-home', 'mdi-code-array', 'mdi-xml', 'mdi-cash', 'mdi-food-apple', 'mdi-account', 'mdi-shield', 'mdi-pencil']
 
@@ -77,30 +75,36 @@ async function createNotebook() {
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>
       <div class="offcanvas-body">
-        <div class="d-flex d-inline">
-          <div class="mb-3">
-            <label for="title" class="form-label">Notebook Title</label>
-            <input type="text" class="form-control w-100" placeholder="Title" aria-label="title">
+        <form @submit.prevent="createNotebook()">
+          <div class="d-flex d-inline">
+            <div class="mb-3">
+              <label for="title">Notebook Title</label>
+              <input v-model="editableNotebookData.title" id="title" name="title" type="text" class="form-control w-100"
+                placeholder="Title" aria-label="title" maxlength="25" required>
+            </div>
+            <div class="mb-3 ms-1">
+              <label for="icon">Icon</label>
+              <input v-model="editableNotebookData.icon" id="icon" name="icon" type="text" class="form-control w-100"
+                placeholder="Icon" aria-label="icon" maxlength="25">
+            </div>
+            <div class="mb-3 ms-1">
+              <label for="color">Color</label>
+              <input v-model="editableNotebookData.color" id="color" name="color" type="color"
+                class="form-control form-control-color w-100" value="#563d7c" title="Choose your color" maxlength="20"
+                required>
+            </div>
           </div>
-          <div class="mb-3 ms-1">
-            <label for="icon" class="form-label">Icon</label>
-            <input type="text" class="form-control w-100" placeholder="Icon" aria-label="icon">
+          <div class="mb-4">
+            <label for="coverImg">Cover Image</label>
+            <input v-model="editableNotebookData.coverImg" id="coverImg" name="coverImg" type="url" class="form-control"
+              placeholder="Image URL..." aria-label="url" maxlength="500" required>
           </div>
-          <div class="mb-3 ms-1">
-            <label for="color" class="form-label">Color</label>
-            <input type="color" class="form-control form-control-color w-100" id="color" value="#563d7c"
-              title="Choose your color">
+          <div class="d-flex justify-content-end">
+            <button class="btn btn-primary text-light" type="submit">
+              Create Notebook
+            </button>
           </div>
-        </div>
-        <div class="mb-4">
-          <label for="url" class="form-label">Cover Image</label>
-          <input type="url" class="form-control" placeholder="Image URL..." aria-label="url">
-        </div>
-        <div class="d-flex justify-content-end">
-          <button class="btn btn-primary text-light" type="button">
-            Create Notebook
-          </button>
-        </div>
+        </form>
       </div>
       <div v-if="account" class="offcanvas-footer overflow-auto">
         <div v-for="notebook in notebooks" :key="notebook.id">
