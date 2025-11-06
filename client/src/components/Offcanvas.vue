@@ -4,7 +4,7 @@ import { accountService } from '@/services/AccountService.js';
 import { notebookService } from '@/services/NotebookService.js';
 import { logger } from '@/utils/Logger.js';
 import { Pop } from '@/utils/Pop.js';
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 import { useRoute } from 'vue-router';
 
 
@@ -12,6 +12,14 @@ const account = computed(() => AppState.account)
 const notebooks = computed(() => AppState.notebooks)
 const route = useRoute()
 
+const icon = ['mdi-database', 'mdi-cloud', 'mdi-package', 'mdi-palette', 'mdi-home', 'mdi-code-array', 'mdi-xml', 'mdi-cash', 'mdi-food-apple', 'mdi-account', 'mdi-shield', 'mdi-pencil']
+
+const editableNotebookData = ref({
+  title: '',
+  icon: '',
+  coverImg: '',
+  color: '',
+})
 
 async function getNotebooks() {
   try {
@@ -33,6 +41,23 @@ async function getNotebookById(notebookId) {
   catch (error) {
     Pop.error(error);
     logger.log('Could not get Active Notebook!', error)
+  }
+}
+
+async function createNotebook() {
+  try {
+    const notebook = await notebookService.createNotebook(editableNotebookData.value)
+    editableNotebookData.value = {
+      title: '',
+      icon: '',
+      coverImg: '',
+      color: '',
+    }
+
+  }
+  catch (error) {
+    Pop.error(error);
+    logger.log('Could not create Notebook!', error)
   }
 }
 
@@ -78,7 +103,6 @@ async function getNotebookById(notebookId) {
         </div>
       </div>
       <div v-if="account" class="offcanvas-footer overflow-auto">
-        <!-- TODO create simple layout for notebook data as a button so active notebook can be rendered on home page when selected -->
         <div v-for="notebook in notebooks" :key="notebook.id">
           <span @click="getNotebookById(notebook.id)"
             class="d-flex d-inline justify-content-between m-2 notebook-btn rounded p-2" type="button"

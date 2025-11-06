@@ -19,6 +19,14 @@ class NotebookService {
     AppState.activeNotebook = notebook
   }
 
+  async createNotebook(notebookData) {
+    const response = await api.post('api/notebooks', notebookData)
+    logger.log('Created Notebook!', response.data)
+    const notebook = new Notebook(response.data)
+    AppState.notebooks.unshift(notebook)
+    return notebook
+  }
+
 }
 
 export const notebookService = new NotebookService()
