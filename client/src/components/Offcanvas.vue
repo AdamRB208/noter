@@ -93,7 +93,7 @@ async function createNotebook() {
             <div class="mb-3 ms-1">
               <label for="icon" class="form-label mb-0">Icon</label>
               <div class="dropdown">
-                <button class="btn btn-outline-secondary dropdown-toggle w-100" type="button" data-bs-toggle="dropdown"
+                <button class="btn btn-light dropdown-toggle w-100" type="button" data-bs-toggle="dropdown"
                   aria-expanded="false">
                   <i v-if="editableNotebookData.icon" :class="`mdi ${editableNotebookData.icon}`"></i>
                   {{ editableNotebookData.icon ? editableNotebookData.icon.replace('mdi-', '') : 'Choose icon...' }}

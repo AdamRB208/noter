@@ -63,7 +63,7 @@ async function deleteNotebook(activeNotebookId) {
       </div>
       <div v-if="activeNotebook" class="col-md-6">
         <div class="d-flex justify-content-center mt-4 background-container" :style="backgroundStyle">
-          <h2 class="mt-4 p-2" :style="titleBackground">{{ activeNotebook?.title }}</h2>
+          <h2 :style="titleBackground">{{ activeNotebook?.title }}</h2>
         </div>
         <div class="info-container">
           <p class="pt-2">Created By {{ activeNotebook?.creator.name }}</p>
@@ -86,7 +86,7 @@ async function deleteNotebook(activeNotebookId) {
 
 <style scoped lang="scss">
 .background-container {
-  position: relative
+  position: relative;
 }
 
 p {
@@ -120,6 +120,8 @@ h2 {
   right: 0;
   height: 3.5rem;
   margin: 0;
+  padding-left: 5rem;
+    padding-right: 5rem;
   display: flex;
   align-items: center;
 }
