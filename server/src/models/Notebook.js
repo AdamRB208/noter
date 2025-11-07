@@ -2,8 +2,7 @@ import mongoose from "mongoose";
 
 const Schema = mongoose.Schema
 
-export const NotebookSchema = new Schema(
-  {
+export const NotebookSchema = new Schema({
     creatorId: { type: Schema.ObjectId, required: true, ref: 'Account' },
     title: {type: String, minLength: 3, maxLength: 25, required: true},
     icon: {

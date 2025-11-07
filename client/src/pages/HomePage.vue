@@ -68,8 +68,8 @@ async function deleteNotebook(activeNotebookId) {
         <div class="info-container">
           <p class="pt-2">Created By {{ activeNotebook?.creator.name }}</p>
           <div class="edit-details-container">
-            <p>Created</p>
-            <p>Last Updated</p>
+            <p>Created {{ activeNotebook?.createdAt }}</p>
+            <p>Last Updated {{ activeNotebook?.updatedAt }}</p>
           </div>
           <div class="buttons-container">
             <p class="d-flex justify-content-end">{{ activeNotebook?.entryCount }} entries</p>
