@@ -41,7 +41,7 @@ class NotebooksService {
     if (notebook?.creatorId != userInfo.id) {
       throw new Forbidden(`YOU CANNOT DELETE ANOTHER USERS NOTEBOOK ${userInfo.name.toUpperCase()}!`);
     }
-    await notebook?.save()
+    await notebook?.deleteOne()
     return notebook
   }
 

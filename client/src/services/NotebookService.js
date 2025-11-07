@@ -27,6 +27,15 @@ class NotebookService {
     return notebook
   }
 
+  async deleteNotebook(notebookId) {
+    logger.log('Attempting delete with notebookId:', notebookId)
+    const response = await api.delete(`api/notebooks/${notebookId}`)
+    logger.log('Delete response', response)
+    logger.log('Deleted Notebook', response.data)
+    const notebook = AppState.notebooks
+    const notebookIndex = notebook.findIndex(notebook => notebook.id == notebookId)
+    notebook.splice(notebookIndex, 1)
+  }
 }
 
 export const notebookService = new NotebookService()

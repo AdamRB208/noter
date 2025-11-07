@@ -1,6 +1,9 @@
 <script setup>
 import { AppState } from '@/AppState.js';
 import Offcanvas from '@/components/Offcanvas.vue';
+import { notebookService } from '@/services/NotebookService.js';
+import { logger } from '@/utils/Logger.js';
+import { Pop } from '@/utils/Pop.js';
 import { computed, watch } from 'vue';
 
 const activeNotebook = computed(() => AppState.activeNotebook)
@@ -33,6 +36,21 @@ watch(activeNotebook, (newNotebook) => {
   }
 })
 
+async function deleteNotebook(activeNotebookId) {
+  try {
+    logger.log('Deleting notebook with ID:', activeNotebookId, 'Type:', typeof activeNotebookId)
+    const confirmed = await Pop.confirm('Are you sure you want to delete this Notebook?', 'It will be gone forever.', 'Yes', 'No')
+    if (!confirmed) {
+      return
+    }
+    await notebookService.deleteNotebook(activeNotebookId)
+  }
+  catch (error) {
+    Pop.error(error, 'COULD NOT DELETE NOTEBOOK!');
+    logger.log('Could not delete Notebook!', error)
+  }
+}
+
 </script>
 
 <template>
@@ -56,7 +74,8 @@ watch(activeNotebook, (newNotebook) => {
           <div class="buttons-container">
             <p class="d-flex justify-content-end">{{ activeNotebook?.entryCount }} entries</p>
             <button class="btn btn-outline-primary" type="button">edit</button>
-            <button class="btn btn-outline-primary" type="button">delete</button>
+            <button @click="deleteNotebook(activeNotebook?.id)" class="btn btn-outline-primary"
+              type="button">delete</button>
             <button class="btn btn-outline-primary" type="button">new</button>
           </div>
         </div>
