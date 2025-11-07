@@ -35,6 +35,9 @@ class NotebookService {
     const notebook = AppState.notebooks
     const notebookIndex = notebook.findIndex(notebook => notebook.id == notebookId)
     notebook.splice(notebookIndex, 1)
+    if (AppState.activeNotebook?.id === notebookId) {
+      AppState.activeNotebook = null
+    }
   }
 }
 
