@@ -18,6 +18,15 @@ const backgroundStyle = computed(() => {
   return {}
 })
 
+const titleBackground = computed(() => {
+  if (activeNotebook.value?.color) {
+    return {
+      backgroundColor: `${activeNotebook.value.color}`
+    }
+  }
+  return {}
+})
+
 watch(activeNotebook, (newNotebook) => {
   if (newNotebook?.id) {
     return activeNotebook
@@ -36,7 +45,7 @@ watch(activeNotebook, (newNotebook) => {
       </div>
       <div v-if="activeNotebook" class="col-md-6">
         <div class="d-flex justify-content-center mt-4 background-container" :style="backgroundStyle">
-          <h2 class="mt-4 p-2">{{ activeNotebook?.title }}</h2>
+          <h2 class="mt-4 p-2" :style="titleBackground">{{ activeNotebook?.title }}</h2>
         </div>
         <div class="info-container">
           <p class="pt-2">Created By {{ activeNotebook?.creator.name }}</p>
@@ -90,7 +99,6 @@ h2 {
   position: absolute;
   bottom: 0;
   right: 0;
-  background-color: rgba(62, 62, 64, 0.524);
   height: 3.5rem;
   margin: 0;
   display: flex;
