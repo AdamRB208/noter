@@ -21,8 +21,10 @@ const editableNotebookData = ref({
 
 async function getNotebooks() {
   try {
-    await accountService.getAccount()
-    notebookService.getNotebooks()
+    if (!account.value?.id) {
+      await accountService.getAccount()
+    }
+    await notebookService.getNotebooks()
   }
   catch (error) {
     Pop.error(error, 'COULD NOT GET NOTEBOOKS!');
@@ -64,8 +66,13 @@ async function createNotebook() {
 
 <template>
   <div class="m-5">
-    <button @click="getNotebooks()" class="btn btn-primary btn-rounded text-light" type="button"
-      data-bs-toggle="offcanvas" data-bs-target="#manageNotebooks" aria-controls="manageNotebooks">Notebooks</button>
+    <button v-if="account" @click="getNotebooks()" class="btn btn-primary btn-rounded text-light" type="button"
+      data-bs-toggle="offcanvas" data-bs-target="#manageNotebooks" aria-controls="manageNotebooks">
+      Notebooks
+    </button>
+    <button v-else class="btn btn-secondary btn-rounded text-light" type="button" disabled>
+      Sign in to view notebooks
+    </button>
   </div>
   <div>
     <div class="offcanvas offcanvas-start text-light" tabindex="-1" id="manageNotebooks"
@@ -74,6 +81,7 @@ async function createNotebook() {
         <h5 class="offcanvas-title" id="manageNotebooks">Manage Notebooks</h5>
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>
+      <!-- NOTE Create Notebook Form Begins Here!!!! -->
       <div class="offcanvas-body">
         <form @submit.prevent="createNotebook()">
           <div class="d-flex d-inline">
@@ -82,7 +90,6 @@ async function createNotebook() {
               <input v-model="editableNotebookData.title" id="title" name="title" type="text" class="form-control w-100"
                 placeholder="Title" aria-label="title" maxlength="25" required>
             </div>
-            <!-- TODO make icon section a dropdown where the icon can be selected -->
             <div class="mb-3 ms-1">
               <label for="icon" class="form-label mb-0">Icon</label>
               <div class="dropdown">
@@ -119,11 +126,21 @@ async function createNotebook() {
           </div>
         </form>
       </div>
-      <div v-if="account" class="offcanvas-footer overflow-auto">
+      <!-- NOTE Notebook Section Begins Here!!!! -->
+      <div v-if="!account" class="text-center p-3">
+        <div class="spinner-border" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+        <p>Authenticating...</p>
+      </div>
+      <div v-else-if="account && notebooks.length === 0" class="text-center p-3">
+        <p>No notebooks yet. Create your first one!</p>
+      </div>
+      <div v-else-if="account && notebooks.length > 0" class="offcanvas-footer overflow-auto">
         <div v-for="notebook in notebooks" :key="notebook.id">
           <span @click="getNotebookById(notebook.id)"
             class="d-flex d-inline justify-content-between m-2 notebook-btn rounded p-2" type="button"
-            :style="{ borderColor: notebook.color }">
+            data-bs-dismiss="offcanvas" :style="{ borderColor: notebook.color }">
             <i :class="`mdi ${notebook.icon}`"></i>
             <div>{{ notebook.title }}</div>
             <div>{{ notebook.entryCount }} Entries</div>
