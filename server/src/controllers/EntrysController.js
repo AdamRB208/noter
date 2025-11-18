@@ -72,6 +72,23 @@ export class EntrysController extends BaseController {
    * @param {import("express").Response} response
    * @param {import("express").NextFunction} next
    */
+
+  async getNotebookEntries(request, response, next) {
+    try {
+      const userInfo = request.userInfo
+      const notebookEntries = await entryService.getNotebookEntries(notebookId, userInfo.id)
+      response.send(notebookEntries)
+    }
+    catch (error) {
+      next(error);
+    }
+  }
+
+  /**
+   * @param {import("express").Request} request
+   * @param {import("express").Response} response
+   * @param {import("express").NextFunction} next
+   */
   async editEntry(request, response, next) {
     try {
       const entryId = request.params.entryId

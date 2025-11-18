@@ -1,5 +1,6 @@
 <script setup>
 import { AppState } from '@/AppState.js';
+import EntryCard from '@/components/EntryCard.vue';
 import Offcanvas from '@/components/Offcanvas.vue';
 import { notebookService } from '@/services/NotebookService.js';
 import { logger } from '@/utils/Logger.js';
@@ -30,8 +31,15 @@ const titleBackground = computed(() => {
   return {}
 })
 
-watch(activeNotebook, (newNotebook) => {
-  if (newNotebook?.id) {
+watch(activeNotebook, async (newNotebook, oldNotebook) => {
+  if (newNotebook?.id && newNotebook.id !== oldNotebook.id) {
+    try {
+      await entrysService.getNotebookEntries(newNotebook.id)
+    }
+    catch (error) {
+      logger.log('Could not get notebook Entries!', error)
+      Pop.error(error, 'COULD NOT GET NOTEBOOK ENTIRES!');
+    }
     return activeNotebook
   }
 })
@@ -48,6 +56,16 @@ async function deleteNotebook(activeNotebookId) {
   catch (error) {
     Pop.error(error, 'COULD NOT DELETE NOTEBOOK!');
     logger.log('Could not delete Notebook!', error)
+  }
+}
+
+async function getNotebookEntries(notebookId) {
+  try {
+    await entrysService.getNotebookEntries(notebookId)
+  }
+  catch (error) {
+    logger.log('Could not get notebook entries with notebook ID!')
+    Pop.error(error, 'COULD NOT GET NOTEBOOK ENTRIES WITH NOTEBOOK ID!');
   }
 }
 
@@ -79,6 +97,9 @@ async function deleteNotebook(activeNotebookId) {
             <button class="btn btn-outline-primary" type="button">new</button>
           </div>
         </div>
+      </div>
+      <div class="col-md-6">
+        <EntryCard />
       </div>
     </div>
   </div>
