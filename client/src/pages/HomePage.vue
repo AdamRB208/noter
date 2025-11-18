@@ -2,6 +2,7 @@
 import { AppState } from '@/AppState.js';
 import EntryCard from '@/components/EntryCard.vue';
 import Offcanvas from '@/components/Offcanvas.vue';
+import { entrysService } from '@/services/EntrysService.js';
 import { notebookService } from '@/services/NotebookService.js';
 import { logger } from '@/utils/Logger.js';
 import { Pop } from '@/utils/Pop.js';
@@ -61,7 +62,7 @@ async function deleteNotebook(activeNotebookId) {
 
 async function getNotebookEntries(notebookId) {
   try {
-    await entrysService.getNotebookEntries(notebookId)
+    await await entrysService.getNotebookEntries(notebookId)
   }
   catch (error) {
     logger.log('Could not get notebook entries with notebook ID!')
