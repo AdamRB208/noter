@@ -88,9 +88,9 @@ async function deleteNotebook(activeNotebookId) {
           </div>
         </div>
       </div>
-      <div class="col-md-6">
-        <EntryCard />
-      </div>
+    </div>
+    <div class="row entry-container">
+      <EntryCard />
     </div>
   </div>
 </template>
@@ -135,5 +135,10 @@ h2 {
     padding-right: 5rem;
   display: flex;
   align-items: center;
+}
+.entry-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 3rem;
 }
 </style>
