@@ -1,7 +1,7 @@
+
+
 class EntrysService {
-  getNotebookEntries(notebookId) {
-    throw new Error('Method not implemented.');
-  }
+
 
 }
 

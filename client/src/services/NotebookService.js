@@ -2,8 +2,16 @@ import { logger } from "@/utils/Logger.js"
 import { api } from "./AxiosService.js"
 import { AppState } from "@/AppState.js"
 import { Notebook } from "@/models/Notebook.js"
+import { Entry } from "@/models/Entry.js"
 
 class NotebookService {
+
+  async getNotebookEntries(notebookId) {
+    const response = await api.get(`api/notebooks/${notebookId}/entries`)
+    logger.log('Got Notebook Entries', response.data)
+    const notebookEntries = response.data.map(pojo => new Entry(pojo))
+    AppState.entries = notebookEntries
+  }
 
   async getNotebooks() {
     const response = await api.get('api/notebooks')
