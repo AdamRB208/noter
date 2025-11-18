@@ -58,15 +58,6 @@ async function deleteNotebook(activeNotebookId) {
   }
 }
 
-// async function getNotebookEntries(notebookId) {
-//   try {
-//     await notebookService.getNotebookEntries(notebookId)
-//   }
-//   catch (error) {
-//     logger.log('Could not get notebook entries with notebook ID!')
-//     Pop.error(error, 'COULD NOT GET NOTEBOOK ENTRIES WITH NOTEBOOK ID!');
-//   }
-// }
 
 </script>
 
