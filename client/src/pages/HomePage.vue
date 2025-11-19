@@ -1,6 +1,7 @@
 <script setup>
 import { AppState } from '@/AppState.js';
 import EntryCard from '@/components/EntryCard.vue';
+import EntryModal from '@/components/EntryModal.vue';
 import Offcanvas from '@/components/Offcanvas.vue';
 import { notebookService } from '@/services/NotebookService.js';
 import { logger } from '@/utils/Logger.js';
@@ -84,7 +85,8 @@ async function deleteNotebook(activeNotebookId) {
             <button class="btn btn-outline-primary" type="button">edit</button>
             <button @click="deleteNotebook(activeNotebook?.id)" class="btn btn-outline-primary"
               type="button">delete</button>
-            <button class="btn btn-outline-primary" type="button">new</button>
+            <button class="btn btn-outline-primary" type="button" data-bs-toggle="modal"
+              data-bs-target="#entryModal">new</button>
           </div>
         </div>
         <div class="mt-3 mb-3">
@@ -92,9 +94,7 @@ async function deleteNotebook(activeNotebookId) {
         </div>
       </div>
     </div>
-    <!-- <div class="row entry-container">
-      <EntryCard />
-    </div> -->
+    <EntryModal />
   </div>
 </template>
 
