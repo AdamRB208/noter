@@ -87,11 +87,14 @@ async function deleteNotebook(activeNotebookId) {
             <button class="btn btn-outline-primary" type="button">new</button>
           </div>
         </div>
+        <div class="mt-3 mb-3">
+          <EntryCard />
+        </div>
       </div>
     </div>
-    <div class="row entry-container">
+    <!-- <div class="row entry-container">
       <EntryCard />
-    </div>
+    </div> -->
   </div>
 </template>
 
