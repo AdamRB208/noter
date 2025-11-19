@@ -27,8 +27,6 @@ img {
 }
 
 .entry-container {
-  border: 4px;
-  border-color: black;
-
+  border: 2px solid black;
 }
 </style>

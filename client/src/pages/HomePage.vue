@@ -32,7 +32,7 @@ const titleBackground = computed(() => {
 })
 
 watch(activeNotebook, async (newNotebook, oldNotebook) => {
-  if (newNotebook?.id && newNotebook.id !== oldNotebook.id) {
+  if (newNotebook?.id && newNotebook.id !== oldNotebook?.id) {
     try {
       await notebookService.getNotebookEntries(newNotebook.id)
     }
@@ -41,7 +41,7 @@ watch(activeNotebook, async (newNotebook, oldNotebook) => {
       Pop.error(error, 'COULD NOT GET NOTEBOOK ENTIRES!');
     }
   }
-}, { immediate: true })
+})
 
 async function deleteNotebook(activeNotebookId) {
   try {
