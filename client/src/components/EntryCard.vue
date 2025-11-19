@@ -11,7 +11,9 @@ const entry = computed(() => AppState.entries)
 <template>
   <div v-for="entry in entry" :key="entry.id" class="entry-container">
     <div class="d-flex">
-      <img :src="`${entry.img}`" alt="Image included in entry">
+      <div class="p-2">
+        <img :src="`${entry.img}`" alt="Image included in entry">
+      </div>
       <div class="p-2">
         <p>{{ entry.description }}</p>
       </div>
@@ -26,16 +28,18 @@ const entry = computed(() => AppState.entries)
 <style lang="scss" scoped>
 img {
   width: 15rem;
-    height: auto;
+  min-height: 100%;
   }
   
   .entry-container {
     border: 2px solid black;
   }
-                                                                                                                                p {
-                                                                                                                                  font-size: .75rem;
-                                                                                                                                  padding: 1em;
-                                                                                                                                  margin: 0;
-                                                                                                                                  background-color: antiquewhite;
-                                                                                                                                }
+
+p {
+  font-size: .75rem;
+  padding: 1em;
+  margin: 0;
+  background-color: antiquewhite;
+  min-height: 100%;
+}
 </style>
