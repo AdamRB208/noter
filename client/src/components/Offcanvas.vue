@@ -4,6 +4,7 @@ import { accountService } from '@/services/AccountService.js';
 import { notebookService } from '@/services/NotebookService.js';
 import { logger } from '@/utils/Logger.js';
 import { Pop } from '@/utils/Pop.js';
+import { Offcanvas } from 'bootstrap';
 import { Modal } from 'bootstrap';
 import { computed, ref } from 'vue';
 
@@ -45,6 +46,7 @@ async function getNotebookById(notebookId) {
   }
 }
 
+// TODO try and get the function to open on the newly created notebook
 async function createNotebook() {
   try {
     const notebook = await notebookService.createNotebook(editableNotebookData.value)
@@ -54,7 +56,7 @@ async function createNotebook() {
       coverImg: '',
       color: '',
     }
-    Modal.getOrCreateInstance('#manageNotebooks').hide()
+    Offcanvas.getOrCreateInstance('#manageNotebooks').hide()
   }
   catch (error) {
     Pop.error(error);
