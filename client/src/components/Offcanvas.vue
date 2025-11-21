@@ -4,6 +4,7 @@ import { accountService } from '@/services/AccountService.js';
 import { notebookService } from '@/services/NotebookService.js';
 import { logger } from '@/utils/Logger.js';
 import { Pop } from '@/utils/Pop.js';
+import { Modal } from 'bootstrap';
 import { computed, ref } from 'vue';
 
 
@@ -53,7 +54,7 @@ async function createNotebook() {
       coverImg: '',
       color: '',
     }
-
+    Modal.getOrCreateInstance('#manageNotebooks').hide()
   }
   catch (error) {
     Pop.error(error);
