@@ -1,10 +1,9 @@
 <script setup>
-import { AppState } from '@/AppState.js';
 import { entrysService } from '@/services/EntrysService.js';
 import { logger } from '@/utils/Logger.js';
 import { Pop } from '@/utils/Pop.js';
+import { Modal } from 'bootstrap';
 import { ref } from 'vue';
-
 
 
 const formData = ref({
@@ -12,18 +11,11 @@ const formData = ref({
   img: '',
 })
 
-function resetForm() {
-  formData.value = {
-    description: '',
-    img: '',
-    notebookId: '',
-  }
-}
-
 async function createEntry() {
   try {
     await entrysService.createEntry(formData.value)
-    resetForm()
+    formData.value = { description: '', img: '' }
+    Modal.getOrCreateInstance('#entryModal').hide()
   }
   catch (error) {
     Pop.error(error, "COULD NOT CREATE ENTRY!");

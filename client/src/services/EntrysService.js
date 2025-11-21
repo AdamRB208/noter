@@ -6,7 +6,7 @@ import { AppState } from "@/AppState.js"
 class EntrysService {
 
   async createEntry(formData) {
-    formData.notebookId = activeNotebook
+    formData.notebookId = AppState.activeNotebook.id
     const response = await api.post('api/entries', formData)
     console.log("Created Entry", response.data)
     const createdEntry = new Entry(response.data)
