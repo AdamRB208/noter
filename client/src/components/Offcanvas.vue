@@ -5,7 +5,6 @@ import { notebookService } from '@/services/NotebookService.js';
 import { logger } from '@/utils/Logger.js';
 import { Pop } from '@/utils/Pop.js';
 import { Offcanvas } from 'bootstrap';
-import { Modal } from 'bootstrap';
 import { computed, ref } from 'vue';
 
 
