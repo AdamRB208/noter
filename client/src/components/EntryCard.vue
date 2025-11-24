@@ -14,7 +14,7 @@ const entry = computed(() => AppState.entries)
       <div class="p-2">
         <img :src="`${entry.img}`" alt="Image included in entry">
       </div>
-      <div class="p-2">
+      <div class="p-2 description-container">
         <p>{{ entry.description }}</p>
       </div>
     </div>
@@ -33,6 +33,7 @@ img {
   
   .entry-container {
     border: 2px solid black;
+    margin-bottom: .5rem;
   }
 
 p {
@@ -41,5 +42,10 @@ p {
   margin: 0;
   background-color: antiquewhite;
   min-height: 100%;
+  min-width: 100%;
+  }
+  
+  .description-container {
+    width: 100%;
 }
 </style>
