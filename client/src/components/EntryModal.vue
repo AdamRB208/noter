@@ -1,5 +1,7 @@
 <script setup>
+import { AppState } from '@/AppState.js';
 import { entrysService } from '@/services/EntrysService.js';
+import { notebookService } from '@/services/NotebookService.js';
 import { logger } from '@/utils/Logger.js';
 import { Pop } from '@/utils/Pop.js';
 import { Modal } from 'bootstrap';
@@ -14,6 +16,11 @@ const formData = ref({
 async function createEntry() {
   try {
     await entrysService.createEntry(formData.value)
+    const createdEntry = AppState.entries
+    const notebookId = createdEntry.notebookId || AppState.activeNotebook?.id
+    if (notebookId) {
+      await notebookService.getNotebookById(notebookId)
+    }
     formData.value = { description: '', img: '' }
     Modal.getOrCreateInstance('#entryModal').hide()
   }
@@ -37,7 +44,7 @@ async function createEntry() {
         <div class="modal-body">
           <form @submit.prevent="createEntry()">
             <div class="mb-3">
-              <label for="description" class="form-label">Example textarea</label>
+              <label for="description" class="form-label">Text Area</label>
               <textarea v-model="formData.description" class="form-control" id="description" rows="3" required
                 maxlength="2000"></textarea>
             </div>
