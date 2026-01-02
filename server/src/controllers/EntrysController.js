@@ -8,7 +8,6 @@ export class EntrysController extends BaseController {
     super('api/entries')
     this.router
       .use(Auth0Provider.getAuthorizedUserInfo)
-      .post('', this.createGeneralEntry)
       .post('', this.createEntry)
       .get('', this.getUsersEntries)
       .put('/:entryId', this.editEntry)
@@ -27,24 +26,6 @@ export class EntrysController extends BaseController {
       const userInfo = request.userInfo
       entryData.creatorId = userInfo.id
       const entry = await entryService.createEntry(entryData)
-      response.send(entry)
-    } catch (error) {
-      next(error);
-    }
-  }
-
-  /**
-   * @param {import("express").Request} request
-   * @param {import("express").Response} response
-   * @param {import("express").NextFunction} next
-   */
-
-  async createGeneralEntry(request, response, next) {
-    try {
-      const entryData = request.body
-      const userinfo = request.userInfo
-      entryData.creatorId = userinfo.id
-      const entry = await entryService.createGeneralEntry(entryData)
       response.send(entry)
     } catch (error) {
       next(error);

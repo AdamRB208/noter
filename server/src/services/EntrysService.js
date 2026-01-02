@@ -8,11 +8,6 @@ class EntrysService {
     await entry.populate('notebook')
     return entry
   }
-  
-  async createGeneralEntry(entryData) {
-    const entry = await dbContext.Entry.create(entryData)
-    return entry
-  }
 
   async getUsersEntries(userId) {
     const entries = await dbContext.Entry.find({ creatorId: userId }).populate('notebook')

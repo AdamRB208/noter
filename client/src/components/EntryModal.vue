@@ -13,6 +13,7 @@ const formData = ref({
   img: '',
 })
 
+// TODO see if this update can be changed on back end with easier logic. 
 async function createEntry() {
   try {
     await entrysService.createEntry(formData.value)
