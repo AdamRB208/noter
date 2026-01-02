@@ -1,15 +1,16 @@
 <script setup>
 import { AppState } from '@/AppState.js';
 import { computed } from 'vue';
+import EntryModal from './EntryModal.vue';
 
 
-const entry = computed(() => AppState.entries)
+const entries = computed(() => AppState.entries)
 
 </script>
 
 
 <template>
-  <div v-for="entry in entry" :key="entry.id" class="entry-container">
+  <div v-for="entry in entries" :key="entry.id" class="entry-container">
     <div class="d-flex">
       <div class="p-2">
         <img :src="`${entry.img}`" alt="Image included in entry">
@@ -19,9 +20,11 @@ const entry = computed(() => AppState.entries)
       </div>
     </div>
     <div class="d-flex justify-content-end m-2">
-      <button class="btn btn-outline-dark"><i class="mdi mdi-dots-horizontal"></i></button>
+      <button class="btn btn-outline-dark"><i class="mdi mdi-dots-horizontal" type="button" data-bs-toggle="modal"
+          data-bs-target="#entryModal"></i></button>
     </div>
   </div>
+  <EntryModal />
 </template>
 
 
@@ -29,12 +32,12 @@ const entry = computed(() => AppState.entries)
 img {
   width: 15rem;
   min-height: 100%;
-  }
-  
-  .entry-container {
-    border: 2px solid black;
-    margin-bottom: .5rem;
-  }
+}
+
+.entry-container {
+  border: 2px solid black;
+  margin-bottom: .5rem;
+}
 
 p {
   font-size: .75rem;
@@ -43,9 +46,9 @@ p {
   background-color: antiquewhite;
   min-height: 100%;
   min-width: 100%;
-  }
-  
-  .description-container {
-    width: 100%;
+}
+
+.description-container {
+  width: 100%;
 }
 </style>
