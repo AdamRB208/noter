@@ -6,9 +6,24 @@ import Offcanvas from '@/components/Offcanvas.vue';
 import { notebookService } from '@/services/NotebookService.js';
 import { logger } from '@/utils/Logger.js';
 import { Pop } from '@/utils/Pop.js';
-import { computed, watch } from 'vue';
+import { computed, ref, watch } from 'vue';
+import { Modal } from 'bootstrap';
 
 const activeNotebook = computed(() => AppState.activeNotebook)
+const modalMode = ref('new')
+const modalEntry = ref(null)
+
+function openNew() {
+  modalMode.value = 'new'
+  modalEntry.value = null
+  Modal.getOrCreateInstance(document.getElementById('entryModal')).show()
+}
+
+function openEdit(entry) {
+  modalMode.value = 'edit'
+  modalEntry.value = entry
+  Modal.getOrCreateInstance(document.getElementById('entryModal')).show()
+}
 
 const backgroundStyle = computed(() => {
   if (activeNotebook.value?.coverImg) {
@@ -85,16 +100,15 @@ async function deleteNotebook(activeNotebookId) {
             <button class="btn btn-outline-primary" type="button">edit</button>
             <button @click="deleteNotebook(activeNotebook?.id)" class="btn btn-outline-primary"
               type="button">delete</button>
-            <button class="btn btn-outline-primary" type="button" data-bs-toggle="modal"
-              data-bs-target="#entryModal">new</button>
+            <button @click="openNew" class="btn btn-outline-primary" type="button">new</button>
           </div>
         </div>
         <div class="mt-3 mb-3">
-          <EntryCard />
+          <EntryCard @edit="openEdit" />
         </div>
       </div>
     </div>
-    <EntryModal />
+    <EntryModal :mode="modalMode" :entry="modalEntry" />
   </div>
 </template>
 

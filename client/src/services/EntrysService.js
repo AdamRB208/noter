@@ -13,6 +13,16 @@ class EntrysService {
     AppState.entries.push(createdEntry)
   }
 
+  async editEntry(entryId, updateData) {
+    const res = await api.put(`api/entries/${entryId}`, updateData)
+    const updated = new Entry(res.data)
+    const idx = AppState.entries.findIndex(e => e.id === updated.id || e._id === updated._id)
+    if (idx >= 0) {
+      AppState.entries.splice(idx, 1, updated)
+    }
+    return updated
+  }
+
 
 }
 

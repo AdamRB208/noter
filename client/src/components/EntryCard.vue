@@ -1,10 +1,10 @@
 <script setup>
 import { AppState } from '@/AppState.js';
 import { computed } from 'vue';
-import EntryModal from './EntryModal.vue';
 
 
 const entries = computed(() => AppState.entries)
+const emit = defineEmits(['edit'])
 
 </script>
 
@@ -20,11 +20,10 @@ const entries = computed(() => AppState.entries)
       </div>
     </div>
     <div class="d-flex justify-content-end m-2">
-      <button class="btn btn-outline-dark"><i class="mdi mdi-dots-horizontal" type="button" data-bs-toggle="modal"
-          data-bs-target="#entryModal"></i></button>
+      <button @click="() => emit('edit', entry)" class="btn btn-outline-dark" type="button"><i
+          class="mdi mdi-dots-horizontal"></i></button>
     </div>
   </div>
-  <EntryModal />
 </template>
 
 
